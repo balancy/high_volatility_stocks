@@ -1,3 +1,4 @@
+.mypy-cache
 .vs_code
 .venv
 __pycache__
