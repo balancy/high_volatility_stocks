@@ -1,3 +1,5 @@
+import json
+
 import pandas as pd
 import requests
 
@@ -41,7 +43,7 @@ def fetch_part_of_finviz_results(pagenumber: int) -> pd.DataFrame:
     return table[1:]
 
 
-def fetch_finviz_results() -> pd.DataFrame:
+def fetch_finviz_results() -> list:
     """Fetches results from finviz screener.
 
     Finviz screener results are represented in several pages: overview,
@@ -52,24 +54,29 @@ def fetch_finviz_results() -> pd.DataFrame:
         results
     """
 
-    finviz_results = fetch_part_of_finviz_results(FINVIZ_PAGENUMBERS[0])
+    finviz_results_df = fetch_part_of_finviz_results(FINVIZ_PAGENUMBERS[0])
 
     for pagenumber in FINVIZ_PAGENUMBERS[1:]:
         new_finviz_results = fetch_part_of_finviz_results(pagenumber)
         different_columns = new_finviz_results.columns.difference(
-            finviz_results.columns
+            finviz_results_df.columns
         )
 
-        finviz_results = pd.merge(
-            finviz_results,
+        finviz_results_df = pd.merge(
+            finviz_results_df,
             new_finviz_results[different_columns],
             left_index=True,
             right_index=True,
             how='inner',
         )
 
-    return finviz_results
+    finviz_results_df.drop('No.', axis=1, inplace=True)
+
+    finviz_results_json = finviz_results_df.to_json(orient='records')
+    finviz_results_parsed = json.loads(finviz_results_json)
+
+    return finviz_results_parsed
 
 
 if __name__ == '__main__':
-    print(fetch_finviz_results())
+    print(json.dumps(fetch_finviz_results(), indent=4))
