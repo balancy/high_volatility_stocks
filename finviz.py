@@ -1,82 +1,73 @@
 import json
+import sys
 
 import pandas as pd
 import requests
+from requests.models import HTTPError
+from requests.sessions import TooManyRedirects
 
 from constants import (
     BROWSER_HEADERS,
-    FINVIZ_PAGENUMBERS,
     FINVIZ_SCREENER_URL,
-    FINVIZ_SEARCH_PARAMETERS,
+    FINVIZ_PARAMETERS,
 )
+from utils import transform_json_from_list_to_dict_form
 
 
-def fetch_part_of_finviz_results(pagenumber: int) -> pd.DataFrame:
-    """Fetches one part from finviz screener results.
+def fetch_finviz_results() -> list:
+    """Fetches the results from finviz screener.
 
-    Finviz screener results are represented in several pages: overview,
-    valuation, financial, performance. This function fetches only one page
-    defined by pagenumber.
-
-    Arguments:
-        pagenumber: pagenumber to fetch one page from results
+    Finviz results accoring to search and display parameters.
 
     Returns:
-        data from one results page
+        results
     """
-
-    params = {
-        'v': pagenumber,
-        'f': FINVIZ_SEARCH_PARAMETERS,
-    }
 
     response = requests.get(
         url=FINVIZ_SCREENER_URL,
         headers=BROWSER_HEADERS,
-        params=params,
+        params=FINVIZ_PARAMETERS,
     )
     response.raise_for_status()
 
     table = pd.read_html(response.content)[-2]
     table.columns = table.iloc[0]
 
-    return table[1:]
+    table_in_json_format = table[1:].to_json(orient='records')
+
+    return json.loads(table_in_json_format)
 
 
-def fetch_finviz_results() -> list:
-    """Fetches results from finviz screener.
+def form_correct_response_for_api_demanding_finviz_results() -> dict:
+    """Formes the correct response to API endpoint.
 
-    Finviz screener results are represented in several pages: overview,
-    valuation, financial, performance. This function fetches all these pages
-    concatenated.
+    If an API endpoint demands for finviz results, it fetches the results.
+    If fetching is successful, returns the results in the correct form. If not,
+    returns predefined dictionary.
 
-    Returns:
+    Return:
         results
     """
 
-    finviz_results_df = fetch_part_of_finviz_results(FINVIZ_PAGENUMBERS[0])
+    try:
+        finviz_results = fetch_finviz_results()
+    except (
+        ConnectionError,
+        HTTPError,
+        TimeoutError,
+        TooManyRedirects,
+        Exception,
+    ):
+        ex_type, _, _ = sys.exc_info()
+        return {
+            'error': f'{ex_type.__name__} was occured during fetching data',
+        }
 
-    for pagenumber in FINVIZ_PAGENUMBERS[1:]:
-        new_finviz_results = fetch_part_of_finviz_results(pagenumber)
-        different_columns = new_finviz_results.columns.difference(
-            finviz_results_df.columns
-        )
+    if not finviz_results:
+        return {'results': 'no results found'}
 
-        finviz_results_df = pd.merge(
-            finviz_results_df,
-            new_finviz_results[different_columns],
-            left_index=True,
-            right_index=True,
-            how='inner',
-        )
-
-    finviz_results_df.drop('No.', axis=1, inplace=True)
-
-    finviz_results_json = finviz_results_df.to_json(orient='records')
-    finviz_results_parsed = json.loads(finviz_results_json)
-
-    return finviz_results_parsed
+    return transform_json_from_list_to_dict_form(finviz_results)
 
 
 if __name__ == '__main__':
-    print(json.dumps(fetch_finviz_results(), indent=4))
+    print(form_correct_response_for_api_demanding_finviz_results(), indent=4)

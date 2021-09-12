@@ -1,7 +1,5 @@
-from utils import transform_json_from_list_to_dict_form
+from finviz import form_correct_response_for_api_demanding_finviz_results
 from fastapi import FastAPI
-
-from finviz import fetch_finviz_results
 
 
 app = FastAPI()
@@ -9,5 +7,4 @@ app = FastAPI()
 
 @app.get('/')
 def home():
-    finviz_results_in_list_format = fetch_finviz_results()
-    return transform_json_from_list_to_dict_form(finviz_results_in_list_format)
+    return form_correct_response_for_api_demanding_finviz_results()
