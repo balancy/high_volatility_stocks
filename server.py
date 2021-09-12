@@ -1,6 +1,8 @@
-from finviz import form_correct_response_for_api_demanding_finviz_results
 from fastapi import FastAPI
 
+from backend.finviz import (
+    form_correct_response_for_api_demanding_finviz_results,
+)
 
 app = FastAPI()
 

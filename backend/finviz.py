@@ -2,16 +2,14 @@ import json
 import sys
 
 import pandas as pd
-import requests
-from requests.models import HTTPError
-from requests.sessions import TooManyRedirects
+import httpx
 
-from constants import (
+from .constants import (
     BROWSER_HEADERS,
     FINVIZ_SCREENER_URL,
     FINVIZ_PARAMETERS,
 )
-from utils import transform_json_from_list_to_dict_form
+from .utils import transform_json_from_list_to_dict_form
 
 
 def fetch_finviz_results() -> list:
@@ -23,7 +21,7 @@ def fetch_finviz_results() -> list:
         results
     """
 
-    response = requests.get(
+    response = httpx.get(
         url=FINVIZ_SCREENER_URL,
         headers=BROWSER_HEADERS,
         params=FINVIZ_PARAMETERS,
@@ -53,9 +51,9 @@ def form_correct_response_for_api_demanding_finviz_results() -> dict:
         finviz_results = fetch_finviz_results()
     except (
         ConnectionError,
-        HTTPError,
+        httpx.RequestError,
+        httpx.NetworkError,
         TimeoutError,
-        TooManyRedirects,
         Exception,
     ):
         ex_type, _, _ = sys.exc_info()
@@ -70,4 +68,9 @@ def form_correct_response_for_api_demanding_finviz_results() -> dict:
 
 
 if __name__ == '__main__':
-    print(form_correct_response_for_api_demanding_finviz_results(), indent=4)
+    print(
+        json.dumps(
+            form_correct_response_for_api_demanding_finviz_results(),
+            indent=4,
+        )
+    )
