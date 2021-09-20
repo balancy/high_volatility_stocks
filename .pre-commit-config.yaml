@@ -6,4 +6,6 @@ repos:
     -   id: detect-private-key
     -   id: double-quote-string-fixer
     -   id: end-of-file-fixer
+        exclude: alembic/versions/
     -   id: trailing-whitespace
+        exclude: alembic/versions/

@@ -2,4 +2,7 @@
 
 ## Launch
 
-uvicorn server:app --reload
+uvicorn backend.server:app --reload
+
+## Start docker
+docker compose up

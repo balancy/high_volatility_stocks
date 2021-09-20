@@ -1,8 +1,8 @@
 import json
 import sys
 
-import pandas as pd
-import httpx
+import pandas
+import requests
 
 from .constants import (
     BROWSER_HEADERS,
@@ -21,14 +21,14 @@ def fetch_finviz_results() -> list:
         results
     """
 
-    response = httpx.get(
+    response = requests.get(
         url=FINVIZ_SCREENER_URL,
         headers=BROWSER_HEADERS,
         params=FINVIZ_PARAMETERS,
     )
     response.raise_for_status()
 
-    table = pd.read_html(response.content)[-2]
+    table = pandas.read_html(response.text)[-2]
     table.columns = table.iloc[0]
 
     table_in_json_format = table[1:].to_json(orient='records')
@@ -51,8 +51,7 @@ def form_correct_response_for_api_demanding_finviz_results() -> dict:
         finviz_results = fetch_finviz_results()
     except (
         ConnectionError,
-        httpx.RequestError,
-        httpx.NetworkError,
+        requests.RequestException,
         TimeoutError,
         Exception,
     ):

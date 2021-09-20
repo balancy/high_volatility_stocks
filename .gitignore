@@ -3,3 +3,4 @@ __pycache__
 .mypy-cache
 .venv
 .vs_code
+db/pg-data
