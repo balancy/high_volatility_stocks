@@ -3,6 +3,7 @@ from apscheduler.triggers.cron import CronTrigger
 from fastapi import FastAPI
 from fastapi_sqlalchemy import DBSessionMiddleware
 from fastapi_sqlalchemy import db
+from starlette.responses import HTMLResponse
 
 from backend.constants import DB_URL
 from backend.db_interaction import refresh_stocks_data_in_db
@@ -37,6 +38,26 @@ async def startup_event():
     )
 
 
-@app.get('/')
-def home():
+@app.get('/', response_class=HTMLResponse)
+def get_all_urls():
+    """Shows all urls accessible in the app."""
+
+    url_list_in_html_format = [
+        f'<li><a href="{route.path}">{route.name}</a></li>'
+        for route in app.routes
+    ]
+
+    html_content = (
+        '<html><head><title>App urls</title></head><body><ul>'
+        f'{"".join(url_list_in_html_format)}'
+        '</ul></body></html>'
+    )
+
+    return html_content
+
+
+@app.get('/stocks', response_model=list)
+def all_stocks():
+    """Shows all stocks from db."""
+
     return db.session.query(ModelStock).all()
