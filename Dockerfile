@@ -13,17 +13,24 @@ ENV ENV=${ENV} \
     POETRY_VERSION=1.1.8 \
     POETRY_NO_INTERACTION=1
 
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y
+RUN apt-get update && apt-get -y install cron vim --no-install-recommends
 
 RUN pip install "poetry==$POETRY_VERSION"
 
 WORKDIR /code
 
-COPY poetry.lock pyproject.toml /code/
+COPY . /code
+
+# COPY poetry.lock pyproject.toml /code/
 
 RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
 
-COPY . /code
+# COPY crontab /etc/cron.d/crontab
+
+# RUN chmod 0644 /code/crontab
+
+# RUN /usr/bin/crontab /code/crontab
+
+# CMD ["cron", "-f"]
 
 EXPOSE ${WEB_PORT}

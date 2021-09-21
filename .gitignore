@@ -4,3 +4,4 @@ __pycache__
 .venv
 .vs_code
 db/pg-data
+logs

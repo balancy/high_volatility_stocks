@@ -29,16 +29,15 @@ class Stock(Base):
     gross_m = Column(Float)
     oper_m = Column(Float)
     profit_m = Column(Float)
-    volume = Column(Integer)
+    volume = Column(String)
 
     def __repr__(self) -> str:
         return f'<Stock {self.ticker}>'
 
     @property
     def serialize(self) -> dict:
-        """
-        Return item in serializeable format
-        """
+        """Return item in serializeable format."""
+
         return {
             'ticker': self.ticker,
             'company': self.company,

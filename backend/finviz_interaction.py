@@ -1,15 +1,16 @@
 import json
 import sys
+from typing import Optional
 
 import pandas
 import requests
 
-from .constants import (
+from backend.constants import (
     BROWSER_HEADERS,
     FINVIZ_SCREENER_URL,
     FINVIZ_PARAMETERS,
 )
-from .utils import transform_json_from_list_to_dict_form
+from backend.root_logger import logger
 
 
 def fetch_finviz_results() -> list:
@@ -36,40 +37,39 @@ def fetch_finviz_results() -> list:
     return json.loads(table_in_json_format)
 
 
-def form_correct_response_for_api_demanding_finviz_results() -> dict:
-    """Formes the correct response to API endpoint.
+def handle_received_finviz_results() -> Optional[list]:
+    """Handles finviz results.
+    If error occured during fetching or empty list returned, returns None and
+    writes corresponding message to the logger.
 
-    If an API endpoint demands for finviz results, it fetches the results.
-    If fetching is successful, returns the results in the correct form. If not,
-    returns predefined dictionary.
-
-    Return:
-        results
+    Returns:
+        None or results if fetching succeded
     """
 
     try:
         finviz_results = fetch_finviz_results()
     except (
         ConnectionError,
-        requests.RequestException,
         TimeoutError,
         Exception,
     ):
         ex_type, _, _ = sys.exc_info()
-        return {
-            'error': f'{ex_type.__name__} was occured during fetching data',
-        }
+        logger.exception(
+            {ex_type.__name__} + ' occured during fetching data from finviz'
+        )
+        return None
 
     if not finviz_results:
-        return {'results': 'no results found'}
+        logger.info('No results found during fetching data from finviz')
+        return None
 
-    return transform_json_from_list_to_dict_form(finviz_results)
+    return finviz_results
 
 
 if __name__ == '__main__':
     print(
         json.dumps(
-            form_correct_response_for_api_demanding_finviz_results(),
+            fetch_finviz_results(),
             indent=4,
         )
     )

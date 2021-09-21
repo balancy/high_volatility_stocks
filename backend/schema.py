@@ -23,7 +23,7 @@ class Stock(BaseModel):
     gross_m: float = None
     oper_m: float = None
     profit_m: float = None
-    volume: int = None
+    volume: str = None
 
     class Config:
         orm_mode = True

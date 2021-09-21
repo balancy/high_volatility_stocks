@@ -1,34 +1,20 @@
-TICKER_KEY = 'Ticker'
+from typing import Optional
 
 
-def transform_json_from_list_to_dict_form(json_list: list) -> dict:
-    """Transforms json from list to dictionary form using Ticker value as key.
-
-    Example:
-    [
-        {'Ticker': 'AAPL', 'Price': '249', ...},
-        {'Ticker': 'MSFT', 'Price': '127', ...},
-        ...
-    ] will transform to
-    {
-        'AAPL': {'Price': '249', ...},
-        'MSFT': {'Price': '127', ...},
-        ...
-    }
+def fix_value(value: str) -> Optional[float]:
+    """Fixes value.
+    If value represents -, returns None. If % in value, deletes it.
 
     Arguments:
-        json_list: initial json in list form
+        value: value to fix
 
-    Return:
-        transformed json in dictionary form
+    Returns:
+        fixed value
     """
 
-    json_dict = dict()
+    if value == '-':
+        return None
 
-    for record in json_list:
-        ticker = record.get(TICKER_KEY)
-        json_dict[ticker] = {
-            key: value for key, value in record.items() if key != TICKER_KEY
-        }
+    value = value.replace('%', '')
 
-    return json_dict
+    return float(value)
