@@ -1,5 +1,4 @@
 import json
-import sys
 from typing import Optional
 
 import pandas
@@ -16,7 +15,7 @@ from backend.root_logger import logger
 def fetch_finviz_results() -> list:
     """Fetches the results from finviz screener.
 
-    Finviz results accoring to search and display parameters.
+    Fetches results accoring to search and display parameters.
 
     Returns:
         results
@@ -39,7 +38,7 @@ def fetch_finviz_results() -> list:
 
 def handle_received_finviz_results() -> Optional[list]:
     """Handles finviz results.
-    If error occured during fetching or empty list returned, returns None and
+    If error occures during fetching or empty list returned, returns None and
     writes corresponding message to the logger.
 
     Returns:
@@ -50,12 +49,12 @@ def handle_received_finviz_results() -> Optional[list]:
         finviz_results = fetch_finviz_results()
     except (
         ConnectionError,
+        requests.exceptions.HTTPError,
         TimeoutError,
         Exception,
-    ):
-        ex_type, _, _ = sys.exc_info()
-        logger.exception(
-            {ex_type.__name__} + ' occured during fetching data from finviz'
+    ) as e:
+        logger.error(
+            f'Exception "{e}" occured during fetching data from barchart'
         )
         return None
 

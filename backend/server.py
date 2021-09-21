@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Optional
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
@@ -8,6 +8,7 @@ from fastapi_sqlalchemy import db
 from starlette.requests import Request
 from starlette.responses import HTMLResponse
 
+from backend.barchart_interaction import handle_received_options_overview
 from backend.constants import DB_URL
 from backend.db_interaction import refresh_stocks_data_in_db
 from backend.finviz_interaction import handle_received_finviz_results
@@ -71,11 +72,22 @@ async def all_stocks() -> list:
 
 
 @app.get('/stocks/{ticker}')
-async def stock_by_ticker(ticker: str) -> Union[list, str]:
-    """Shows stock with specific ticker.
+async def stock_by_ticker(ticker: str) -> dict:
+    """Shows some stock fundamentals for specific ticker.
 
     Arguments:
         ticker: ticker of stock to search info about
     """
 
     return db.session.query(ModelStock).filter_by(ticker=ticker).first()
+
+
+@app.get('/options-overview/{ticker}')
+async def options_overview_by_ticker(ticker: str) -> Optional[dict]:
+    """Shows options overview for specific ticker.
+
+    Arguments:
+        ticker: ticker of stock to search info about
+    """
+
+    return handle_received_options_overview(ticker)
