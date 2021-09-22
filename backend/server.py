@@ -10,7 +10,7 @@ from starlette.requests import Request
 from backend.barchart_interaction import fetch_options_overview
 from backend.constants import DB_URL
 from backend.db_interaction import (
-    extract_data_from_finviz_and_handles_db_operations,
+    extract_data_from_finviz_and_handle_db_operations,
 )
 from backend.models import Stock as ModelStock
 from backend.utils import handle_fetch, not_found
@@ -27,7 +27,7 @@ async def startup_event():
     scheduler = AsyncIOScheduler()
     scheduler.start()
     scheduler.add_job(
-        extract_data_from_finviz_and_handles_db_operations,
+        extract_data_from_finviz_and_handle_db_operations,
         CronTrigger.from_crontab(
             '0 10-16 * * MON-FRI',
             timezone='America/New_York',
@@ -48,10 +48,13 @@ def get_all_urls(request: Request) -> dict:
     return app_urls
 
 
-@app.get('/coucou')
-def coucou():
-    extract_data_from_finviz_and_handles_db_operations()
-    return 'coucou'
+@app.get('/stocks/refresh')
+async def refresh_stocks():
+    """Refreshes manually stocks data in the databasse."""
+
+    extract_data_from_finviz_and_handle_db_operations()
+
+    return {'result': 'data is refreshed'}
 
 
 @app.get('/stocks')

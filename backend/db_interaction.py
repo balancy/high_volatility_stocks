@@ -105,7 +105,13 @@ def refresh_db_with_stocks_data_from_finviz(
     add_records_to_db(db, tickers_to_add, data)
 
 
-def extract_data_from_finviz_and_handles_db_operations():
+def refresh_db_with_options_data_from_barchart(
+    db: DBSessionMeta, data: list
+) -> None:
+    pass
+
+
+def extract_data_from_finviz_and_handle_db_operations():
     """Asks for the new data from finviz and if succedes, refreshes the db."""
 
     if finviz_results := handle_fetch(fetch_finviz_results):
