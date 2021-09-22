@@ -6,31 +6,14 @@ from fastapi import FastAPI
 from fastapi_sqlalchemy import DBSessionMiddleware
 from fastapi_sqlalchemy import db
 from starlette.requests import Request
-from starlette.responses import HTMLResponse
 
 from backend.barchart_interaction import fetch_options_overview
 from backend.constants import DB_URL
-from backend.db_interaction import refresh_stocks_data_in_db
-from backend.finviz_interaction import fetch_finviz_results
+from backend.db_interaction import (
+    extract_data_from_finviz_and_handles_db_operations,
+)
 from backend.models import Stock as ModelStock
-from backend.utils import handle_fetch
-
-
-async def not_found(request, exc):
-    """Returns header 404."""
-
-    return HTMLResponse(
-        content='<h1>404 - Page not found</h1>',
-        status_code=exc.status_code,
-    )
-
-
-def extract_data_and_fill_db():
-    """Asks for the new data from finviz and if succedes, refresh the db."""
-
-    if finviz_results := handle_fetch(fetch_finviz_results):
-        with db():
-            refresh_stocks_data_in_db(db, finviz_results)
+from backend.utils import handle_fetch, not_found
 
 
 app = FastAPI(exception_handlers={404: not_found})
@@ -44,7 +27,7 @@ async def startup_event():
     scheduler = AsyncIOScheduler()
     scheduler.start()
     scheduler.add_job(
-        extract_data_and_fill_db,
+        extract_data_from_finviz_and_handles_db_operations,
         CronTrigger.from_crontab(
             '0 10-16 * * MON-FRI',
             timezone='America/New_York',
@@ -63,6 +46,12 @@ def get_all_urls(request: Request) -> dict:
     }
 
     return app_urls
+
+
+@app.get('/coucou')
+def coucou():
+    extract_data_from_finviz_and_handles_db_operations()
+    return 'coucou'
 
 
 @app.get('/stocks')

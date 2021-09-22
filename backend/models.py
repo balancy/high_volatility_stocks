@@ -13,23 +13,24 @@ class Stock(Base):
     sector = Column(String)
     industry = Column(String)
     country = Column(String)
-    market_cap = Column(String)
-    pe = Column(Float)
-    forward_pe = Column(Float)
+    market__cap = Column(String)
+    p_e = Column(Float)
+    fwd__p_e = Column(Float)
     peg = Column(Float)
-    ps = Column(Float)
-    pb = Column(Float)
-    div = Column(Float)
+    p_s = Column(Float)
+    p_b = Column(Float)
+    dividend = Column(Float)
     roa = Column(Float)
     roe = Column(Float)
     roi = Column(Float)
-    curr_r = Column(Float)
-    quick_r = Column(Float)
+    curr__r = Column(Float)
+    quick__r = Column(Float)
     debt_eq = Column(Float)
-    gross_m = Column(Float)
-    oper_m = Column(Float)
-    profit_m = Column(Float)
-    volume = Column(String)
+    gross__m = Column(Float)
+    oper__m = Column(Float)
+    profit__m = Column(Float)
+    avg__volume = Column(String)
+    recom = Column(Float)
 
     def __repr__(self) -> str:
         return f'<Stock {self.ticker}>'
@@ -39,26 +40,27 @@ class Stock(Base):
         """Return item in serializeable format."""
 
         return {
-            'ticker': self.ticker,
-            'company': self.company,
-            'sector': self.sector,
-            'industry': self.industry,
-            'country': self.country,
-            'market_cap': self.market_cap,
-            'pe': self.pe,
-            'forward_pe': self.forward_pe,
-            'peg': self.peg,
-            'ps': self.ps,
-            'pb': self.pb,
-            'div': self.div,
-            'roa': self.roa,
-            'roe': self.roe,
-            'roi': self.roi,
-            'curr_r': self.curr_r,
-            'quick_r': self.quick_r,
-            'debt_eq': self.debt_eq,
-            'gross_m': self.gross_m,
-            'oper_m': self.oper_m,
-            'profit_m': self.profit_m,
-            'volume': self.volume,
+            'Ticker': self.ticker,
+            'Company': self.company,
+            'Sector': self.sector,
+            'Industry': self.industry,
+            'Country': self.country,
+            'Market Cap': self.market__cap,
+            'P/E': self.p_e,
+            'Fwd P/E': self.fwd__p_e,
+            'PEG': self.peg,
+            'P/S': self.p_s,
+            'P/B': self.p_b,
+            'Dividend': self.dividend,
+            'ROA': self.roa,
+            'ROE': self.roe,
+            'ROI': self.roi,
+            'Curr R': self.curr__r,
+            'Quick R': self.quick__r,
+            'Debt/Eq': self.debt_eq,
+            'Gross M': self.gross__m,
+            'Oper M': self.oper__m,
+            'Profit M': self.profit__m,
+            'Avg Volume': self.avg__volume,
+            'Recom': self.recom,
         }
