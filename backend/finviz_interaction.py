@@ -1,5 +1,4 @@
 import json
-from typing import Optional
 
 import pandas
 import requests
@@ -9,7 +8,8 @@ from backend.constants import (
     FINVIZ_SCREENER_URL,
     FINVIZ_PARAMETERS,
 )
-from backend.root_logger import logger
+
+# from backend.root_logger import logger
 
 
 def fetch_finviz_results() -> list:
@@ -36,33 +36,33 @@ def fetch_finviz_results() -> list:
     return json.loads(table_in_json_format)
 
 
-def handle_received_finviz_results() -> Optional[list]:
-    """Handles finviz results.
-    If error occures during fetching or empty list returned, returns None and
-    writes corresponding message to the logger.
+# def handle_received_finviz_results() -> Optional[list]:
+#     """Handles finviz results.
+#     If error occures during fetching or empty list returned, returns None and
+#     writes corresponding message to the logger.
 
-    Returns:
-        None or results if fetching succeded
-    """
+#     Returns:
+#         None or results if fetching succeded
+#     """
 
-    try:
-        finviz_results = fetch_finviz_results()
-    except (
-        ConnectionError,
-        requests.exceptions.HTTPError,
-        TimeoutError,
-        Exception,
-    ) as e:
-        logger.error(
-            f'Exception "{e}" occured during fetching data from barchart'
-        )
-        return None
+#     try:
+#         finviz_results = fetch_finviz_results()
+#     except (
+#         ConnectionError,
+#         requests.exceptions.HTTPError,
+#         TimeoutError,
+#         Exception,
+#     ) as e:
+#         logger.error(
+#             f'Exception "{e}" occured during fetching data from barchart'
+#         )
+#         return None
 
-    if not finviz_results:
-        logger.info('No results found during fetching data from finviz')
-        return None
+#     if not finviz_results:
+#         logger.info('No results found during fetching data from finviz')
+#         return None
 
-    return finviz_results
+#     return finviz_results
 
 
 if __name__ == '__main__':

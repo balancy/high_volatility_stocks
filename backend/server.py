@@ -8,11 +8,16 @@ from fastapi_sqlalchemy import db
 from starlette.requests import Request
 from starlette.responses import HTMLResponse
 
-from backend.barchart_interaction import handle_received_options_overview
+from backend.barchart_interaction import fetch_options_overview
+
+# from backend.barchart_interaction import handle_received_options_overview
 from backend.constants import DB_URL
 from backend.db_interaction import refresh_stocks_data_in_db
-from backend.finviz_interaction import handle_received_finviz_results
+from backend.finviz_interaction import fetch_finviz_results
+
+# from backend.finviz_interaction import handle_received_finviz_results
 from backend.models import Stock as ModelStock
+from backend.utils import handle_fetch
 
 
 async def not_found(request, exc):
@@ -27,7 +32,7 @@ async def not_found(request, exc):
 def extract_data_and_fill_db():
     """Asks for the new data from finviz and if succedes, refresh the db."""
 
-    if finviz_results := handle_received_finviz_results():
+    if finviz_results := handle_fetch(fetch_finviz_results):
         with db():
             refresh_stocks_data_in_db(db, finviz_results)
 
@@ -90,4 +95,4 @@ async def options_overview_by_ticker(ticker: str) -> Optional[dict]:
         ticker: ticker of stock to search info about
     """
 
-    return handle_received_options_overview(ticker)
+    return handle_fetch(fetch_options_overview, ticker)
