@@ -3,7 +3,7 @@ import json
 import pandas
 import requests
 
-from backend.constants import (
+from backend.constants.browser import (
     BROWSER_HEADERS,
     FINVIZ_SCREENER_URL,
     FINVIZ_PARAMETERS,

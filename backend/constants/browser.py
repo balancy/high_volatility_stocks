@@ -1,8 +1,3 @@
-import os
-
-from dotenv import load_dotenv
-
-
 BARCHART_URL = 'https://www.barchart.com/stocks/quotes/'
 
 BROWSER_HEADERS = {
@@ -22,10 +17,3 @@ FINVIZ_PARAMETERS = {
     ),
     'c': '1,2,3,4,5,6,7,8,9,10,11,14,32,33,34,35,36,38,39,40,41,62,63',
 }
-
-load_dotenv()
-DB_URL = (
-    f'postgresql+psycopg2://{os.getenv("POSTGRES_USER")}:'
-    f'{os.getenv("POSTGRES_PASSWORD")}@db:{os.getenv("POSTGRES_PORT")}/'
-    f'{os.getenv("POSTGRES_DB")}'
-)

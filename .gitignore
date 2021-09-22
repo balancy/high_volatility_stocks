@@ -1,7 +1,8 @@
-__pycache__
 .env
-.mypy-cache
-.venv
 .vs_code
+backend/__pycache__
+backend/.mypy-cache
+backend/.venv
 db/pg-data
 logs
+frontend/node_modules

@@ -10,15 +10,15 @@ services:
     ports:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
     command: -p ${POSTGRES_PORT}
-  web:
+  backend:
     build:
-      context: .
-      dockerfile: ./Dockerfile
+      context: backend
+      dockerfile: Dockerfile
     env_file:
       - .env
     command: bash -c "alembic upgrade head && uvicorn backend.server:app --host ${HOST} --port ${WEB_PORT} --reload"
     volumes:
-      - .:/code
+      - .:/backend
     ports:
       - "${WEB_PORT}:${WEB_PORT}"
     depends_on:

@@ -3,11 +3,11 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
 
-from backend.constants import (
+from backend.constants.browser import (
     BARCHART_URL,
     BROWSER_HEADERS,
 )
-from backend.utils import fix_value
+from backend.utils.modify_data import fix_value
 
 
 def get_days_number_till_next_earnings_date(html: str) -> int:

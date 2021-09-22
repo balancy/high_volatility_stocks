@@ -17,20 +17,10 @@ RUN apt-get update && apt-get -y install cron vim --no-install-recommends
 
 RUN pip install "poetry==$POETRY_VERSION"
 
-WORKDIR /code
+WORKDIR /backend
 
-COPY . /code
-
-# COPY poetry.lock pyproject.toml /code/
+COPY . /backend
 
 RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
-
-# COPY crontab /etc/cron.d/crontab
-
-# RUN chmod 0644 /code/crontab
-
-# RUN /usr/bin/crontab /code/crontab
-
-# CMD ["cron", "-f"]
 
 EXPOSE ${WEB_PORT}

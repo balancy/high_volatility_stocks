@@ -7,13 +7,13 @@ from fastapi_sqlalchemy import DBSessionMiddleware
 from fastapi_sqlalchemy import db
 from starlette.requests import Request
 
-from backend.barchart_interaction import fetch_options_overview
-from backend.constants import DB_URL
-from backend.db_interaction import (
+from backend.sites_interaction.barchart import fetch_options_overview
+from backend.constants.db import DB_URL
+from backend.db.handle_requests import (
     extract_data_from_finviz_and_handle_db_operations,
 )
-from backend.models import Stock as ModelStock
-from backend.utils import handle_fetch, not_found
+from backend.db.models import Stock
+from backend.utils.handle_errors import handle_fetch, not_found
 
 
 app = FastAPI(exception_handlers={404: not_found})
@@ -61,7 +61,7 @@ async def refresh_stocks():
 async def all_stocks() -> list:
     """Shows all stocks from db."""
 
-    return db.session.query(ModelStock).all()
+    return db.session.query(Stock).all()
 
 
 @app.get('/stocks/{ticker}')
@@ -72,7 +72,7 @@ async def stock_by_ticker(ticker: str) -> dict:
         ticker: ticker of stock to search info about
     """
 
-    return db.session.query(ModelStock).filter_by(ticker=ticker).first()
+    return db.session.query(Stock).filter_by(ticker=ticker).first()
 
 
 @app.get('/options-overview/{ticker}')
