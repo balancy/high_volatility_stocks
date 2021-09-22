@@ -1,4 +1,3 @@
-# from typing import Optional
 from datetime import datetime
 
 from bs4 import BeautifulSoup
@@ -8,8 +7,6 @@ from backend.constants import (
     BARCHART_URL,
     BROWSER_HEADERS,
 )
-
-# from backend.root_logger import logger
 from backend.utils import fix_value
 
 
@@ -41,7 +38,7 @@ def fetch_options_overview(ticker: str) -> dict:
         ticker: ticker to search options overview for
 
     Returns:
-        overview
+        options overview
     """
 
     response = requests.get(
@@ -62,31 +59,6 @@ def fetch_options_overview(ticker: str) -> dict:
     ] = get_days_number_till_next_earnings_date(soup)
 
     return options_overview
-
-
-# def handle_received_options_overview(ticker: str) -> Optional[dict]:
-#     """Handles options overview fetched from barchart.
-#     If error occures during fetching, returns None and
-#     writes corresponding message to the logger.
-
-#     Returns:
-#         None or results if fetching succeded
-#     """
-
-#     try:
-#         options_overview = fetch_options_overview(ticker)
-#     except (
-#         ConnectionError,
-#         requests.exceptions.HTTPError,
-#         TimeoutError,
-#         Exception,
-#     ) as e:
-#         logger.error(
-#             f'Exception "{e}" occured during fetching data from barchart',
-#         )
-#         return None
-
-#     return options_overview
 
 
 if __name__ == '__main__':

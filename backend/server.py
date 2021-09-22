@@ -9,13 +9,9 @@ from starlette.requests import Request
 from starlette.responses import HTMLResponse
 
 from backend.barchart_interaction import fetch_options_overview
-
-# from backend.barchart_interaction import handle_received_options_overview
 from backend.constants import DB_URL
 from backend.db_interaction import refresh_stocks_data_in_db
 from backend.finviz_interaction import fetch_finviz_results
-
-# from backend.finviz_interaction import handle_received_finviz_results
 from backend.models import Stock as ModelStock
 from backend.utils import handle_fetch
 
