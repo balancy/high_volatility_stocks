@@ -43,9 +43,11 @@ def update_records_in_db(
 
     db.session.commit()
 
-    logger.info(
-        f'Tickers {", ".join(tickers_to_update)} updated in the Stocks table'
-    )
+    if tickers_to_update:
+        logger.info(
+            f'Tickers {", ".join(tickers_to_update)} updated in the Stocks '
+            'table'
+        )
 
 
 def add_records_to_db(
