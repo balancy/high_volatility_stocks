@@ -1,23 +1,23 @@
 import { CircularProgress, Typography } from '@mui/material'
 
-import List from './List'
 import React from 'react'
+import StocksList from './StocksList'
 
-const FetchResults = ({ fetchResults }) => {
+const ResultsOfFetch = ({ results }) => {
     return (
         <>
-            {fetchResults.isError &&
+            {results.isError &&
                 <Typography variant="subtitle2" align="center">
                     Something went wrong during fetching...
                 </Typography>
             }
 
-            {fetchResults.isLoading
+            {results.isLoading
                 ? <CircularProgress align="center" />
-                : <List data={fetchResults.data} />
+                : <StocksList data={results.data} />
             }
         </>
     )
 }
 
-export default FetchResults
+export default ResultsOfFetch

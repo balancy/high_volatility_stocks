@@ -2,8 +2,8 @@ import './App.css';
 
 import { useEffect, useReducer } from 'react';
 
-import Button from '@mui/material/Button';
-import FetchResults from './components/FetchResults';
+import { Container } from '@mui/material';
+import ResultsOfFetch from './components/ResultsOfFetch';
 import { STOCKS_URL } from './constants';
 import dataFetchReducer from './reducers/dataFetch';
 import handleFetchData from './services/fetchAPI';
@@ -19,13 +19,9 @@ const App = () => {
   }, [])
 
   return (
-    <div>
-      <h1>App</h1>
-      <Button variant="contained">Hello World</Button>
-
-      <hr />
-      <FetchResults fetchResults={stocksData} />
-    </div>
+    <Container maxWidth="lg">
+      <ResultsOfFetch results={stocksData} />
+    </Container>
   );
 }
 
