@@ -2,9 +2,11 @@ import './App.css';
 
 import { useEffect, useReducer } from 'react';
 
-import StocksFetchResults from './components/StocksFetchResults';
+import Button from '@mui/material/Button';
+import FetchResults from './components/FetchResults';
+import { STOCKS_URL } from './constants';
 import dataFetchReducer from './reducers/dataFetch';
-import handleFetchStocksData from './API/fetchStocksData';
+import handleFetchData from './services/fetchAPI';
 
 const App = () => {
   const [stocksData, dispatchStocksData] = useReducer(
@@ -13,15 +15,16 @@ const App = () => {
   )
 
   useEffect(() => {
-    handleFetchStocksData(dispatchStocksData)
+    handleFetchData(STOCKS_URL, dispatchStocksData)
   }, [])
 
   return (
     <div>
       <h1>App</h1>
+      <Button variant="contained">Hello World</Button>
 
       <hr />
-      <StocksFetchResults stocksData={stocksData} />
+      <FetchResults fetchResults={stocksData} />
     </div>
   );
 }
