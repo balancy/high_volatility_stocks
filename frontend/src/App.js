@@ -3,6 +3,7 @@ import './App.css';
 import { useEffect, useReducer } from 'react';
 
 import { Container } from '@mui/material';
+import NavBar from './components/NavBar';
 import ResultsOfFetch from './components/ResultsOfFetch';
 import { STOCKS_URL } from './constants';
 import dataFetchReducer from './reducers/dataFetch';
@@ -19,7 +20,9 @@ const App = () => {
   }, [])
 
   return (
-    <Container maxWidth="lg">
+    <Container align="center">
+      <NavBar />
+
       <ResultsOfFetch results={stocksData} />
     </Container>
   );

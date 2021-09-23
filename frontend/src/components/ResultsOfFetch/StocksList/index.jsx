@@ -16,9 +16,9 @@ const StocksList = ({ data }) => {
                 <TableHead>
                     <TableRow>
                         {
-                            STOCKS_TABLE_HEADERS.map((header) =>
-                                <StyledTableCell>
-                                    {header}
+                            STOCKS_TABLE_HEADERS.map((item) =>
+                                <StyledTableCell key={item}>
+                                    {item}
                                 </StyledTableCell>
                             )
                         }

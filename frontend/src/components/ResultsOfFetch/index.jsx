@@ -5,7 +5,7 @@ import StocksList from './StocksList'
 
 const ResultsOfFetch = ({ results }) => {
     return (
-        <>
+        <div>
             {results.isError &&
                 <Typography variant="subtitle2" align="center">
                     Something went wrong during fetching...
@@ -13,10 +13,10 @@ const ResultsOfFetch = ({ results }) => {
             }
 
             {results.isLoading
-                ? <CircularProgress align="center" />
+                ? <CircularProgress align="center" size="20%" />
                 : <StocksList data={results.data} />
             }
-        </>
+        </div>
     )
 }
 

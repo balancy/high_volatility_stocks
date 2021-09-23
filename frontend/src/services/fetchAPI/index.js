@@ -6,12 +6,10 @@ const handleFetchData = async (url, dispatchData) => {
     const result = await axios.get(url)
 
     try {
-        setTimeout(() => {
-            dispatchData({
-                type: "DATA_FETCH_SUCCESS",
-                payload: result.data,
-            })
-        }, 1000)
+        dispatchData({
+            type: "DATA_FETCH_SUCCESS",
+            payload: result.data,
+        })
     } catch {
         dispatchData({ type: "DATA_FETCH_FAILURE" })
     }
