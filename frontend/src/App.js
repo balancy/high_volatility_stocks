@@ -5,11 +5,11 @@ import { useEffect, useReducer } from 'react';
 
 import { BrowserRouter } from 'react-router-dom';
 import { Container } from '@mui/material';
-import { STOCKS_URL } from './constants';
 import SiteBody from './components/SiteBody';
 import SiteHeader from './components/SiteHeader';
 import dataFetchReducer from './reducers/dataFetch';
 import handleFetchData from './services/fetchAPI';
+import { stocks_url } from './constants';
 
 const App = () => {
   const [stocksData, dispatchStocksData] = useReducer(
@@ -18,11 +18,11 @@ const App = () => {
   )
 
   useEffect(() => {
-    handleFetchData(STOCKS_URL, dispatchStocksData)
+    handleFetchData(stocks_url, dispatchStocksData)
   }, [])
 
   return (
-    <Container align="center">
+    <Container sx={{ width: 1100 }} align="center">
       <BrowserRouter>
         <SiteHeader />
         <SiteBody content={stocksData} />

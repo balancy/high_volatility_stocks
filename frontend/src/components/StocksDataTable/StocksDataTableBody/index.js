@@ -1,15 +1,15 @@
 import { StyledTableCell, StyledTableRow } from '../styles'
 
 import React from 'react'
-import { STOCKS_TABLE_FIELDNAMES } from '../../../constants'
 import { TableBody } from '@mui/material'
+import { table_fieldnames } from '../../../constants'
 
-const StocksDataTableBody = ({ data, fieldnames }) =>
+const StocksDataTableBody = ({ data }) =>
     <TableBody>
         {data.map((item) => (
             <StyledTableRow key={item.id}>
                 {
-                    STOCKS_TABLE_FIELDNAMES.map((field) =>
+                    table_fieldnames.map((field) =>
                         <StyledTableCell>
                             {item[field]}
                         </StyledTableCell>

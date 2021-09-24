@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer'
 const StocksDataTable = ({ data }) => {
     return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} size="small">
+            <Table size="small">
                 <StocksDataTableHead />
                 <StocksDataTableBody data={data} />
             </Table>

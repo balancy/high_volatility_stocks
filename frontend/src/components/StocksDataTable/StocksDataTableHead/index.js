@@ -1,14 +1,14 @@
 import { TableHead, TableRow } from '@mui/material'
 
 import React from 'react'
-import { STOCKS_TABLE_HEADERS } from '../../../constants'
 import { StyledTableCell } from '../styles'
+import { table_headers } from '../../../constants'
 
 const StocksDataTableHead = () =>
     <TableHead>
         <TableRow>
             {
-                STOCKS_TABLE_HEADERS.map((item) =>
+                table_headers.map((item) =>
                     <StyledTableCell key={item}>
                         {item}
                     </StyledTableCell>
