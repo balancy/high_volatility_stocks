@@ -10,11 +10,4 @@ export const useStyles = makeStyles({
         padding: 0,
         marginBottom: 12,
     },
-    button: {
-        minWidth: 200,
-        border: `2px solid`,
-        marginRight: 12,
-        marginLeft: 0,
-        variant: `contained`,
-    },
 });

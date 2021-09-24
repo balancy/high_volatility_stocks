@@ -1,19 +1,17 @@
 import { Container } from '@mui/material'
-import React from 'react'
-import { useStyles } from './styles'
+import { getChartUrl } from '../constants/urls'
+import { useStyles } from './ChartsPage.styles'
 
-const getLink = (ticker) => `https://charts2.finviz.com/chart.ashx?t=${ticker}&ta=1&p=d&s=m`
-
-
-const StocksCharts = ({ data }) => {
+const ChartsPage = ({ data }) => {
     const styles = useStyles()
+
     return (
         <Container className={styles.container} align="left" >
             {
                 data.map((item) =>
                     <img
                         className={styles.image}
-                        src={getLink(item.ticker)}
+                        src={getChartUrl(item.ticker)}
                         alt={item.ticker}
                     />
                 )
@@ -22,4 +20,4 @@ const StocksCharts = ({ data }) => {
     )
 }
 
-export default StocksCharts
+export default ChartsPage

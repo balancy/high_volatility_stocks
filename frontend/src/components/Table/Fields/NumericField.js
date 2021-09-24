@@ -1,5 +1,4 @@
-import React from 'react'
-import { useStyles } from './styles'
+import { useStyles } from './NumericField.styles'
 
 const ColoredFieldValue = ({ value, field }) => {
     const styles = useStyles()

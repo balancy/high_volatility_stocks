@@ -1,14 +1,12 @@
-import './App.css';
-
 import { useEffect, useReducer } from 'react';
 
+import AppBody from './AppBody';
+import AppHeader from './AppHeader';
 import { BrowserRouter } from 'react-router-dom';
 import { Container } from '@mui/material';
-import SiteBody from './components/SiteBody';
-import SiteHeader from './components/SiteHeader';
-import dataFetchReducer from './reducers/dataFetch';
-import handleFetchData from './services/fetchAPI';
-import { stocks_url } from './constants';
+import dataFetchReducer from '../reducers/dataFetchReducer';
+import handleFetchData from '../services/fetchApi';
+import { stocks_url } from '../constants/urls';
 
 const App = () => {
   const [stocksData, dispatchStocksData] = useReducer(
@@ -23,8 +21,8 @@ const App = () => {
   return (
     <Container sx={{ width: 1200 }} align="center">
       <BrowserRouter>
-        <SiteHeader />
-        <SiteBody content={stocksData} />
+        <AppHeader />
+        <AppBody content={stocksData} />
       </BrowserRouter>
     </Container>
   );

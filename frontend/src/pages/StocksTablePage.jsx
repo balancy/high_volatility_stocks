@@ -1,19 +1,19 @@
-import DataTableBody from './DataTableBody'
 import Paper from '@mui/material/Paper'
-import React from 'react'
-import StocksDataTableHead from './StocksDataTableHead'
 import Table from '@mui/material/Table'
 import TableContainer from '@mui/material/TableContainer'
+import TableHead from '../components/Table/Head/TableHead'
+import TableBody from '../components/Table/Body/TableBody'
 
-const StocksDataTable = ({ data }) => {
+
+const StocksTablePage = ({ data }) => {
     return (
         <TableContainer component={Paper}>
             <Table size="small">
-                <StocksDataTableHead />
-                <DataTableBody data={data} />
+                <TableHead />
+                <TableBody data={data} />
             </Table>
         </TableContainer>
     )
 }
 
-export default StocksDataTable
+export default StocksTablePage

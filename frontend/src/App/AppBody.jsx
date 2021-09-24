@@ -1,9 +1,8 @@
 import { CircularProgress, Typography } from '@mui/material'
 
-import React from 'react'
-import SiteBodyData from '../SiteBodyData'
+import AppRouter from '../routers/AppRouter'
 
-const SiteBody = ({ content }) => {
+const AppBody = ({ content }) => {
     return (
         <div>
             {content.isError &&
@@ -14,10 +13,10 @@ const SiteBody = ({ content }) => {
 
             {content.isLoading
                 ? <CircularProgress align="center" size="20%" />
-                : <SiteBodyData data={content.data} />
+                : <AppRouter data={content.data} />
             }
         </div>
     )
 }
 
-export default SiteBody
+export default AppBody

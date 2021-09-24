@@ -1,11 +1,9 @@
-export const stocks_url = 'http://127.0.0.1:8000/stocks/'
-
-export const table_headers = [
+export const tableHeaders = [
     'Ticker', 'Sector', 'Country', 'MCapit', 'P/E', 'Fwd P/E',
     'P/B', 'P/S', 'PEG', 'ROA', 'Debt/Eq', 'Q Ratio', 'Profit M', 'Recom',
 ]
 
-export const table_fields = [
+export const tableFields = [
     {
         'name': 'ticker',
     },
