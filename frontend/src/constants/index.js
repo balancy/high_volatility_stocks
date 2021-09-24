@@ -5,25 +5,77 @@ export const table_headers = [
     'P/B', 'P/S', 'PEG', 'ROA', 'Debt/Eq', 'Q Ratio', 'Profit M', 'Recom',
 ]
 
-export const table_fieldnames = [
-    'ticker', 'sector', 'country', 'market__cap', 'p_e', 'fwd__p_e',
-    'p_b', 'p_s', 'peg', 'roa', 'debt_eq', 'quick__r', 'profit__m', 'recom',
+export const table_fields = [
+    {
+        'name': 'ticker',
+    },
+    {
+        'name': 'sector',
+    },
+    {
+        'name': 'country',
+    },
+    {
+        'name': 'market__cap',
+    },
+    {
+        'name': 'p_e',
+        'min_value': 15,
+        'max_value': 50,
+        'direct_order': true,
+    },
+    {
+        'name': 'fwd__p_e',
+        'min_value': 15,
+        'max_value': 50,
+        'direct_order': true,
+    },
+    {
+        'name': 'p_b',
+        'min_value': 1,
+        'max_value': 5,
+        'direct_order': true,
+    },
+    {
+        'name': 'p_s',
+        'min_value': 1,
+        'max_value': 10,
+        'direct_order': true,
+    },
+    {
+        'name': 'peg',
+        'min_value': 1,
+        'max_value': 2,
+        'direct_order': true,
+    },
+    {
+        'name': 'roa',
+        'min_value': 0,
+        'max_value': 15,
+        'direct_order': false,
+    },
+    {
+        'name': 'debt_eq',
+        'min_value': 0.1,
+        'max_value': 0.5,
+        'direct_order': true,
+    },
+    {
+        'name': 'quick__r',
+        'min_value': 0.5,
+        'max_value': 3,
+        'direct_order': false,
+    },
+    {
+        'name': 'profit__m',
+        'min_value': 0,
+        'max_value': 25,
+        'direct_order': false,
+    },
+    {
+        'name': 'recom',
+        'min_value': 2,
+        'max_value': 3.5,
+        'direct_order': true,
+    },
 ]
-
-// export const STOCKS_TABLE_FIELDS = {
-//     'Ticker': 'ticker',
-//     'Sector': 'sector',
-//     'Industry': 'industry',
-//     'Country': 'country',
-//     'MCapit': 'market__cap',
-//     'P/E': 'p_e',
-//     'Fwd P/E': 'fwd__p_e',
-//     'P/B': 'p_b',
-//     'P/S': 'p_s',
-//     'PEG': 'peg',
-//     'ROA': 'roa',
-//     'Debt/Eq': 'debt_eq',
-//     'Q Ratio': 'quick__r',
-//     'Profit M': 'profit__m',
-//     'Recom': 'recom',
-// }

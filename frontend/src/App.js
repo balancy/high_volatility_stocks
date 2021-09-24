@@ -1,6 +1,5 @@
 import './App.css';
 
-import { Route, Switch } from 'react-router';
 import { useEffect, useReducer } from 'react';
 
 import { BrowserRouter } from 'react-router-dom';
@@ -22,7 +21,7 @@ const App = () => {
   }, [])
 
   return (
-    <Container sx={{ width: 1100 }} align="center">
+    <Container sx={{ width: 1200 }} align="center">
       <BrowserRouter>
         <SiteHeader />
         <SiteBody content={stocksData} />

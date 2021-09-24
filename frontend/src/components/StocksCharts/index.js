@@ -11,7 +11,11 @@ const StocksCharts = ({ data }) => {
         <Container className={styles.container} align="left" >
             {
                 data.map((item) =>
-                    <img className={styles.image} src={getLink(item.ticker)} />
+                    <img
+                        className={styles.image}
+                        src={getLink(item.ticker)}
+                        alt={item.ticker}
+                    />
                 )
             }
         </Container>
