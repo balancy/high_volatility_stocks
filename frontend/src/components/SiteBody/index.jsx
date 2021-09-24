@@ -1,23 +1,23 @@
 import { CircularProgress, Typography } from '@mui/material'
 
 import React from 'react'
-import StocksList from './StocksList'
+import SiteBodyData from '../SiteBodyData'
 
-const ResultsOfFetch = ({ results }) => {
+const SiteBody = ({ content }) => {
     return (
         <div>
-            {results.isError &&
+            {content.isError &&
                 <Typography variant="subtitle2" align="center">
                     Something went wrong during fetching...
                 </Typography>
             }
 
-            {results.isLoading
+            {content.isLoading
                 ? <CircularProgress align="center" size="20%" />
-                : <StocksList data={results.data} />
+                : <SiteBodyData data={content.data} />
             }
         </div>
     )
 }
 
-export default ResultsOfFetch
+export default SiteBody

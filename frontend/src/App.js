@@ -1,11 +1,13 @@
 import './App.css';
 
+import { Route, Switch } from 'react-router';
 import { useEffect, useReducer } from 'react';
 
+import { BrowserRouter } from 'react-router-dom';
 import { Container } from '@mui/material';
-import NavBar from './components/NavBar';
-import ResultsOfFetch from './components/ResultsOfFetch';
 import { STOCKS_URL } from './constants';
+import SiteBody from './components/SiteBody';
+import SiteHeader from './components/SiteHeader';
 import dataFetchReducer from './reducers/dataFetch';
 import handleFetchData from './services/fetchAPI';
 
@@ -21,9 +23,10 @@ const App = () => {
 
   return (
     <Container align="center">
-      <NavBar />
-
-      <ResultsOfFetch results={stocksData} />
+      <BrowserRouter>
+        <SiteHeader />
+        <SiteBody content={stocksData} />
+      </BrowserRouter>
     </Container>
   );
 }

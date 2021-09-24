@@ -10,6 +10,7 @@ BROWSER_HEADERS = {
 CORS_ORIGINS = [
     'http://127.0.0.1:3000',
     'http://localhost:3000',
+    'http://172.23.228.11:3000/',
 ]
 
 FINVIZ_SCREENER_URL = 'https://finviz.com/screener.ashx'
