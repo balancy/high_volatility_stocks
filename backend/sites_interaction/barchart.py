@@ -26,6 +26,9 @@ def get_days_number_till_next_earnings_date(html: str) -> int:
         text='Next Earnings Date',
     ).next_sibling.next_sibling.text.strip()
 
+    if next_date_string == 'N/A':
+        return None
+
     next_date = datetime.strptime(next_date_string, '%m/%d/%y')
 
     return (next_date - datetime.today()).days
