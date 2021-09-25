@@ -12,7 +12,7 @@ const StockPage = () => {
     const styles = useStyles()
 
     return (
-        <Container align="left">
+        <>
             <img
                 src={getChartUrl(ticker, 'l')}
                 alt={ticker}
@@ -22,7 +22,7 @@ const StockPage = () => {
             <Container className={styles.main} align="right">
                 <OutlinedButton method={() => history.goBack()} text="Go back" />
             </Container>
-        </Container>
+        </>
     )
 }
 

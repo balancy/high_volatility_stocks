@@ -4,6 +4,5 @@ export const useStyles = makeStyles({
     main: {
         width: `100%`,
         padding: 0,
-        maxHeight: 350,
     },
 });

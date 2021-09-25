@@ -1,4 +1,4 @@
-import { Paper, Table, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Paper, Table, TableCell, TableContainer, TableRow } from '@mui/material';
 
 import React from 'react'
 import { useStyles } from './VolatilityMetrics.styles';

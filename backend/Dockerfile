@@ -20,7 +20,6 @@ RUN pip install "poetry==$POETRY_VERSION"
 WORKDIR /backend
 
 COPY . /backend
-COPY . .
 
 RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
 

@@ -14,6 +14,7 @@ const ChartsPage = ({ data }) => {
                     <button
                         onClick={() => { history.push(`/stocks/${item.ticker}`) }}
                         className={styles.link}
+                        key={item.id}
                     >
 
                         <img
