@@ -10,4 +10,7 @@ export const useStyles = makeStyles({
         padding: 0,
         marginBottom: 12,
     },
+    space: {
+        width: 12,
+    }
 });

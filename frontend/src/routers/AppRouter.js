@@ -1,16 +1,19 @@
 import { Route, Switch } from 'react-router'
 
-import ChartsPage from '../pages/ChartsPage'
-import StocksTablePage from '../pages/StocksTablePage'
+import AllStocksPage from '../pages/AllStocksPage'
+import StockPage from '../pages/StockPage'
 
-const AppRouter = ({ data }) => {
+const AppRouter = () => {
     return (
         <Switch>
-            <Route exact path="/">
-                <StocksTablePage data={data} />
+            <Route exact path={["/", "/stocks"]}>
+                <AllStocksPage variant="table" />
+            </Route>
+            <Route exact path="/stocks/:ticker">
+                <StockPage />
             </Route>
             <Route exact path="/charts">
-                <ChartsPage data={data} />
+                <AllStocksPage variant="charts" />
             </Route>
         </Switch>
     )

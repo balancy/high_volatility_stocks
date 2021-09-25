@@ -14,4 +14,13 @@ export const useStyles = makeStyles({
         border: "1px solid",
         width: 550,
     },
+    link: {
+        textDecoration: `none`,
+        fontWeight: `600`,
+        color: `inherit`,
+        cursor: `pointer`,
+        background: `none!important`,
+        border: `none`,
+        padding: `0!important`,
+    },
 });
