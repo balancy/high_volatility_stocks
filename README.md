@@ -23,7 +23,17 @@ Docker-compose should be already installed.
 git clone https://github.com/balancy/high_volatility_stocks
 ```
 
-2. Go inside cloned repository, build docker containers:
+2. Rename `.env.example` to `.env` and fill your proper values:
+- `HOST` - hostname
+- `PGADMIN_DEFAULT_EMAIL` - pgadmin email
+- `PGADMIN_DEFAULT_PASSWORD` - pgadmin password
+- `POSTGRES_DB` - name of postgres db
+- `POSTGRES_PASSWORD` - postgres db password
+- `POSTGRES_PORT` - postgres db port
+- `POSTGRES_USER` - postgres db admin username
+- `WEB_PORT` - host backend port
+
+3. Go inside cloned repository, build docker containers:
 ```console
 docker compose build
 ```
@@ -37,5 +47,6 @@ docker compose run
 
 Frontend part will be accessible via:
 ```
-localhost:3000
+host:3000
 ```
+where `host` is your hostname
