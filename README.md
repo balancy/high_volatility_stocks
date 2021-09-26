@@ -13,7 +13,7 @@ Backend part fetches stocks fundamental data from [Finviz](https://finviz.com/) 
 Frontend part fetches stocks data from the backend API endpoints asynchronously and display it.
 
 
-<img src="https://i.ibb.co/R9x8mF3/image.png" alt="image"/>
+<img src="https://i.ibb.co/B4xVvP2/image.png" alt="frontend view"/>
 
 ## Install
 
