@@ -1,16 +1,16 @@
 from fastapi_sqlalchemy import db as database
 from fastapi_sqlalchemy.middleware import DBSessionMeta
 
-from backend.db.crud_operations import (
+from app.db.crud_operations import (
     add_records_to_db,
     delete_records_from_db,
     update_records_in_db,
 )
-from backend.db.models import Stock
-from backend.sites_interaction.finviz import fetch_finviz_results
-from backend.utils.handle_errors import handle_fetch
-from backend.utils.handle_lists import get_tickers_to_delete_update_add
-from backend.utils.modify_data import get_modified_data
+from app.db.models import Stock
+from app.sites_interaction.finviz import fetch_finviz_results
+from app.utils.handle_errors import handle_fetch
+from app.utils.handle_lists import get_tickers_to_delete_update_add
+from app.utils.modify_data import get_modified_data
 
 
 def refresh_db_with_stocks_data_from_finviz(

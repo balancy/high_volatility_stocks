@@ -8,14 +8,14 @@ from fastapi_sqlalchemy import DBSessionMiddleware
 from fastapi_sqlalchemy import db
 from starlette.requests import Request
 
-from backend.sites_interaction.barchart import fetch_options_overview
-from backend.constants.browser import CORS_ORIGINS
-from backend.constants.db import DB_URL
-from backend.db.handle_requests import (
+from app.sites_interaction.barchart import fetch_options_overview
+from app.constants.browser import CORS_ORIGINS
+from app.constants.db import DB_URL
+from app.db.handle_requests import (
     extract_data_from_finviz_and_handle_db_operations,
 )
-from backend.db.models import Stock
-from backend.utils.handle_errors import handle_fetch, not_found
+from app.db.models import Stock
+from app.utils.handle_errors import handle_fetch, not_found
 
 
 app = FastAPI(exception_handlers={404: not_found})

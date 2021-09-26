@@ -13,14 +13,18 @@ ENV ENV=${ENV} \
     POETRY_VERSION=1.1.8 \
     POETRY_NO_INTERACTION=1
 
-RUN apt-get update && apt-get -y install cron vim --no-install-recommends
+RUN mkdir /app
+WORKDIR /app
+
+RUN apt update && apt install -y cron
 
 RUN pip install "poetry==$POETRY_VERSION"
 
-WORKDIR /backend
-
-COPY . /backend
+COPY pyproject.toml ./
+COPY poetry.lock ./
 
 RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
+
+COPY . .
 
 EXPOSE ${WEB_PORT}

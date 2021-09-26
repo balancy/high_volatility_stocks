@@ -4,6 +4,7 @@ services:
   db:
     container_name: db
     image: postgres
+    restart: always
     volumes:
       - ./db/pg-data:/var/lib/postgresql/data
     env_file:
@@ -16,11 +17,12 @@ services:
     build:
       context: backend
       dockerfile: Dockerfile
+    tty: true
     env_file:
       - .env
-    command: bash -c "alembic upgrade head && uvicorn backend.server:app --host ${HOST} --port ${WEB_PORT} --reload"
+    command: bash -c "alembic upgrade head && uvicorn app.server:app --host ${HOST} --port ${WEB_PORT} --reload"
     volumes:
-      - .:/backend
+      - ./backend:/app:cached
     ports:
       - "${WEB_PORT}:${WEB_PORT}"
     depends_on:
@@ -42,6 +44,9 @@ services:
     stdin_open: true
     env_file:
       - .env
+    environment:
+      - REACT_APP_BACKEND_HOST_IP=${HOST}
+      - REACT_APP_BACKEND_PORT=${WEB_PORT}
     volumes:
       - './frontend:/app:cached'
       - './frontend/node_modules:/app/node_modules:cached'

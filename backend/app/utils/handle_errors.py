@@ -3,7 +3,7 @@ from typing import Union
 from requests.exceptions import HTTPError, RequestException
 from starlette.responses import HTMLResponse
 
-from backend.logger.root import logger
+from app.logger.root import logger
 
 
 def handle_fetch(fetch_function, ticker=None) -> Union[list, dict, None]:

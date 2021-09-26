@@ -1,7 +1,7 @@
 from fastapi_sqlalchemy.middleware import DBSessionMeta
 
-from backend.db.models import Stock
-from backend.logger.root import logger
+from app.db.models import Stock
+from app.logger.root import logger
 
 
 def delete_records_from_db(db: DBSessionMeta, tickers_to_delete: list) -> None:
