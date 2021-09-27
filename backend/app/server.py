@@ -3,13 +3,13 @@ from typing import Optional
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi_sqlalchemy import DBSessionMiddleware
 from fastapi_sqlalchemy import db
+from starlette.middleware import Middleware
+from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 
 from app.sites_interaction.barchart import fetch_options_overview
-from app.constants.browser import CORS_ORIGINS
 from app.constants.db import DB_URL
 from app.db.handle_requests import (
     extract_data_from_finviz_and_handle_db_operations,
@@ -18,15 +18,29 @@ from app.db.models import Stock
 from app.utils.handle_errors import handle_fetch, not_found
 
 
-app = FastAPI(exception_handlers={404: not_found})
-app.add_middleware(DBSessionMiddleware, db_url=DB_URL)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=CORS_ORIGINS,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+app = FastAPI(
+    exception_handlers={404: not_found},
+    middleware=[
+        Middleware(
+            CORSMiddleware,
+            allow_origins=["*"],
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        ),
+        Middleware(DBSessionMiddleware, db_url=DB_URL),
+    ]
 )
+# app.add_middleware(
+#     Middleware(
+#         CORSMiddleware,
+#         allow_origins=[CORS_ORIGINS],
+#         allow_credentials=True,
+#         allow_methods=["*"],
+#         allow_headers=["*"],
+#     )
+# )
+# app.add_middleware(DBSessionMiddleware, db_url=DB_URL)
 
 
 @app.on_event('startup')

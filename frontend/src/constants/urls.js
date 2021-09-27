@@ -1,6 +1,6 @@
 const backendHost =
     (process.env.REACT_APP_BACKEND_HOST_IP === '0.0.0.0')
-        ? 'http://127.0.0.1'
+        ? 'http://localhost'
         : process.env.REACT_APP_BACKEND_HOST_IP
 const backendPort = process.env.REACT_APP_BACKEND_PORT
 const fullBackendIP = `${backendHost}:${backendPort}`
